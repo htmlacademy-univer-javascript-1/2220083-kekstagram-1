@@ -1,4 +1,4 @@
-import {getRandomInt} from './util.js';
+import {getRandomInteger} from './util.js';
 
 const COUNT = 25;
 
@@ -8,7 +8,7 @@ const NAME = [
   'Дмитрий'
 ];
 
-const MESSAGE = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -17,39 +17,44 @@ const MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const descriptions = [
+const DESCRIPTIONS = [
   'Необычный снимок',
   'Фотокарта',
   'Как вам стиль фотографии?'
 ];
 
-const arrayObjects = [];
+const photos = [];
 
-const arrayComments = (item) => {
-  const arr = [];
-  for (let i = 0; i < item; i++){
-    arr.push({
+const Likes = {
+  MIN: 15,
+  MAX: 200
+};
+
+const commentsArray = (count) => {
+  const array = [];
+  for(let i = 0; i < count; i++){
+    array.push({
       id: i,
-      avatar: 'img/avatar-{{getRandomInt(1, 6)}}.svg',
-      message: MESSAGE[getRandomInt(0, MESSAGE.length - 1)],
-      name: NAME[getRandomInt(0, NAME.length - 1)]
+      avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+      message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
+      name: NAME[getRandomInteger(0, NAME.length - 1)]
     });
   }
-  return arr;
+  return array;
 };
 
 const addPhotos = () => {
-  for (let i = 0; i < COUNT; i++){
-    arrayObjects.push({
+  for(let i = 0; i < COUNT; i++){
+    photos.push({
       id: i,
-      url: 'photos/{{i + 1}}.jpg',
-      description: descriptions[getRandomInt(0, descriptions.length - 1)],
-      likes: getRandomInt(15, 200),
-      comments: arrayComments(getRandomInt(0, 2))
+      url: `photos/${i + 1}.jpg`,
+      description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
+      likes: getRandomInteger(Likes.MIN, Likes.MAX),
+      comments: commentsArray(getRandomInteger(0, 2))
     });
   }
 };
 
 addPhotos();
 
-export {arrayObjects};
+export {photos};

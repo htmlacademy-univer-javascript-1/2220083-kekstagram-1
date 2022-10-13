@@ -1,4 +1,4 @@
-const getRandomInt = (min, max) => {
+const getRandomInteger = (min, max) => {
   if (min < 0 || max < 0) {
     return -1;
   }
@@ -10,6 +10,6 @@ const getRandomInt = (min, max) => {
 
 const checkStringLength = (str, max = 100) => str.length <= max;
 
-export {getRandomInt};
+export {getRandomInteger};
 
 export {checkStringLength};
