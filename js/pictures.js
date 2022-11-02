@@ -1,4 +1,5 @@
-import {photos} from './data.js';
+import { photos } from './data.js';
+import { addPictureEvenHandler } from './full-picture.js';
 
 const picture = document.querySelector('.pictures');
 
@@ -18,6 +19,8 @@ const renderPhoto = (photo) => {
 
   const comments = item.querySelector('.picture__comments');
   comments.textContent = photo.comments.length;
+
+  addPictureEvenHandler(item, photo);
   return item;
 };
 
@@ -25,6 +28,8 @@ const renderPhotos = () => {
   photos.forEach((photo) => {
     newFragment.appendChild(renderPhoto(photo));
   });
+
   picture.appendChild(newFragment);
 };
+
 renderPhotos();

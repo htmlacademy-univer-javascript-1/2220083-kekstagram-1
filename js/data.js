@@ -40,6 +40,7 @@ const commentsArray = (count) => {
       name: NAME[getRandomInteger(0, NAME.length - 1)]
     });
   }
+
   return array;
 };
 
