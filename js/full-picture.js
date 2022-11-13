@@ -1,15 +1,17 @@
 import { createComment } from './comments.js';
+import { isEscape } from './util.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const commentCounter = document.querySelector('.social__comment-count');
 const commentLoader = document.querySelector('.comments-loader');
+
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 const commentTemplate = bigPicture.querySelector('.social__comment');
 
 const onDocumentEscKeyDown = (evt) => {
-  if(evt.key === 'Escape'){
+  if(isEscape(evt)){
     bigPicture.classList.add('hidden');
-    document.querySelector('body').classList.remove('modal-open');
+    document.body.classList.remove('modal-open');
 
     document.removeEventListener('keydown', onDocumentEscKeyDown);
   }
@@ -42,7 +44,9 @@ const addPictureEvenHandler = (picture, pictureData) =>{
 
 closeButton.addEventListener('click', ()=> {
   bigPicture.classList.add('hidden');
-  document.querySelector('body').classList.remove('modal-open');
+  document.body.classList.remove('modal-open');
+
+  document.removeEventListener('keydown', onDocumentEscKeyDown);
 });
 
 export{addPictureEvenHandler};
