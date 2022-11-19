@@ -1,40 +1,24 @@
-import { onFormInput, clearField } from './hashtags-pristine.js';
-import { isEscape } from './utils.js';
+import { isEscape } from './util.js';
 
-const form = document.querySelector('.img-upload__form');
 const file = document.querySelector('#upload-file');
-const imageOverlay = document.querySelector('.img-upload__overlay');
-const buttonCancel = document.querySelector('#upload-cancel');
-const hashtags = document.querySelector('.text__hashtags');
-const comment = document.querySelector('.text__description');
+const cancelButton = document.querySelector('#upload-cancel');
 
-const onCloseClick = () => {
-  imageOverlay.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+file.addEventListener('change',  () => {
+  document.querySelector('.img-upload__overlay').classList.remove('hidden');
+  document.querySelector('body').classList.add('modal-open');
+});
 
-  file.value = '';
-  hashtags.value = '';
-  comment.value = '';
-
-  clearField();
-
-  form.removeEventListener('submit', onFormInput);
-  buttonCancel.removeEventListener('click', onCloseClick);
-};
+cancelButton.addEventListener('click', () => {
+  document.querySelector('.img-upload__overlay').classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
+});
 
 const onDocumentEscKeyDown = (evt) => {
-  if(isEscape(evt) && !evt.target.classList.contains('text__description') && !evt.target.classList.contains('text__hashtags')) {
-    onCloseClick();
+  if(isEscape(evt) && !evt.target.classList.contains('text__description') && !evt.target.classList.contains('text__hashtags')){
+    document.querySelector('.img-upload__overlay').classList.add('hidden');
+    document.querySelector('body').classList.remove('modal-open');
     document.removeEventListener('keydown', onDocumentEscKeyDown);
   }
 };
 
-const initUpload = () => {
-  imageOverlay.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-  buttonCancel.addEventListener('click', onCloseClick);
-  document.addEventListener('keydown', onDocumentEscKeyDown);
-  form.addEventListener('submit', onFormInput);
-};
-
-file.addEventListener('input', initUpload);
+document.addEventListener('keydown', onDocumentEscKeyDown);

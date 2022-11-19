@@ -1,25 +1,27 @@
 const MAX_SYMBOLS = 20;
 const MAX_HASHTAGS = 5;
-const MAX_COUNT_SYMBOLS = 140;
 
 const form = document.querySelector('.img-upload__form');
-const inputHashtag = document.querySelector('.text__hashtags');
-const inputComment = document.querySelector('.text__description');
+const button = document.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(form, {
-  classTo: 'img-upload__text',
-  errorClass: 'img-upload__text--invalid',
-  successClass: 'img-upload__text--valid',
-  errorTextParent: 'img-upload__text',
+  classTo: 'img-upload__item',
+  errorClass: 'img-upload__item-invalid',
+  successClass: 'img-upload__item-valid',
+  errorTextParent: 'img-upload__item',
   errorTextTag: 'div',
-  errorTextClass: 'img-upload__error-text'
+  errorTextClass: 'img-upload__error'
 });
+
+const inputHashtag = document.querySelector('.text__hashtags');
 
 let errorMessage = '';
 
 const error = () => errorMessage;
 
 const hashtagsHandler = (value) => {
+  errorMessage = '';
+
   const inputText = value.toLowerCase().trim();
 
   if (!inputText) {
@@ -33,10 +35,6 @@ const hashtagsHandler = (value) => {
   }
 
   const rules = [
-    {
-      check: inputArray.some((item) => (item[0] === '#' && item.length === 1)),
-      error: 'Хэш-тег не может состоять только из одной решётки',
-    },
     {
       check: inputArray.some((item) => item.indexOf('#', 1) >= 1),
       error: 'Хэш-теги разделяются пробелами',
@@ -72,22 +70,18 @@ const hashtagsHandler = (value) => {
   });
 };
 
-const validateComment = (value) => value.length <= MAX_COUNT_SYMBOLS;
+pristine.addValidator(inputHashtag, hashtagsHandler, error, 2, false);
 
-const onFormInput = (evt) => {
-  if(!pristine.validate()){
-    evt.preventDefault();
+inputHashtag.addEventListener('input', () => {
+  if(pristine.validate()) {
+    button.disabled = false;
   }
-};
+  else{
+    button.disabled = true;
+  }
+});
+form.addEventListener('submit', (evt) =>{
+  evt.preventDefault();
 
-const clearField  = () => {
-  pristine.reset();
-};
-
-pristine.addValidator(inputHashtag, hashtagsHandler, error);
-
-pristine.addValidator(inputComment, validateComment,
-  `Длина комментария должна быть не более ${MAX_COUNT_SYMBOLS} символов`,
-);
-
-export {onFormInput, clearField};
+  pristine.validate();
+});

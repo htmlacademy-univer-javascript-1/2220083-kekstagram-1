@@ -1,19 +1,23 @@
 import { photos } from './data.js';
-import { addPictureEvenHandler } from './full-picture.js';
 
 const picture = document.querySelector('.pictures');
-const templatePictures = document.querySelector('#picture').content.querySelector('.picture');
+const template = document.querySelector('#picture').content;
+const templatePictures = template.querySelector('.picture');
 
 const newFragment = document.createDocumentFragment();
 
 const renderPhoto = (photo) => {
   const item = templatePictures.cloneNode(true);
 
-  item.querySelector('.picture__img').src = photo.url;
-  item.querySelector('.picture__likes').textContent = photo.likes;
-  item.querySelector('.picture__comments').textContent = photo.comments.length;
+  const img = item.querySelector('.picture__img');
+  img.src = photo.url;
 
-  addPictureEvenHandler(item, photo);
+  const likes = item.querySelector('.picture__likes');
+  likes.textContent = photo.likes;
+
+  const comments = item.querySelector('.picture__comments');
+  comments.textContent = photo.comments.length;
+
   return item;
 };
 
