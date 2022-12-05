@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="nouislider/nouislider.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>Кекстаграм</title>
 </head>
@@ -116,7 +115,7 @@
                 <!-- Добавление хэш-тегов и комментария к изображению -->
                 <fieldset class="img-upload__text text">
                   <div class="img-upload__item">
-                    <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег">
+                    <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег" autocomplete="off">
                   </div>
                   <div class="img-upload__item">
                     <textarea class="text__description" name="description" placeholder="Ваш комментарий..." maxlength="140" autocomplete="off"></textarea>
@@ -231,8 +230,7 @@
   <template id="messages">
     <div class="img-upload__message  img-upload__message--loading">Загружаем...</div>
   </template>
-  <script src="nouislider/nouislider.js"></script>
   <script src="./pristine/pristine.min.js"></script>
-  <script type="module" src="./js/main.js"></script>
+  <script src="./js/main.js" type="module"></script>
 </body>
 </html>

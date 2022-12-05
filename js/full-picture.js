@@ -1,4 +1,5 @@
 import { photos } from './data.js';
+
 const bigPicture = document.querySelector('.big-picture');
 const pictures = document.querySelectorAll('.picture');
 const closeButton = document.querySelector('.big-picture__cancel');
@@ -52,7 +53,7 @@ closeButton.addEventListener('click', ()=> {
 });
 
 const onDocumentEscKeyDown = (evt) => {
-  if(evt.key === 'Escape'){
+  if(evt.key === 'Escape' && !evt.target.classList.contains('big-picture')){
     bigPicture.classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');
 
