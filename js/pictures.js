@@ -1,8 +1,6 @@
 import { photos } from './data.js';
-import { addPictureEvenHandler } from './full-picture.js';
 
 const picture = document.querySelector('.pictures');
-
 const template = document.querySelector('#picture').content;
 const templatePictures = template.querySelector('.picture');
 
@@ -20,7 +18,6 @@ const renderPhoto = (photo) => {
   const comments = item.querySelector('.picture__comments');
   comments.textContent = photo.comments.length;
 
-  addPictureEvenHandler(item, photo);
   return item;
 };
 

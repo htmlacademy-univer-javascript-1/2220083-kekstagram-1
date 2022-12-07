@@ -8,6 +8,6 @@ const getRandomInteger = (min, max) => {
   return Math.floor(Math.random() * (max + 1 - min)) + min;
 };
 
-const checkStringLength = (str, max = 100) => str.length <= max;
+const isEscape = (evt) => evt.key === 'Escape';
 
-export {getRandomInteger, checkStringLength};
+export{getRandomInteger, isEscape};
