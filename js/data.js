@@ -51,7 +51,7 @@ const addPhotos = () => {
       url: `photos/${i + 1}.jpg`,
       description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
       likes: getRandomInteger(Likes.MIN, Likes.MAX),
-      comments: commentsArray(getRandomInteger(0, 2))
+      comments: commentsArray(getRandomInteger(1, 20))
     });
   }
 };
