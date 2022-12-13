@@ -1,4 +1,5 @@
 import { photos } from './data.js';
+import { getFullPictures } from './full-picture.js';
 
 const picture = document.querySelector('.pictures');
 const template = document.querySelector('#picture').content;
@@ -17,6 +18,11 @@ const renderPhoto = (photo) => {
 
   const comments = item.querySelector('.picture__comments');
   comments.textContent = photo.comments.length;
+
+  item.addEventListener('click', (evt) =>{
+    evt.preventDefault();
+    getFullPictures(photo);
+  });
 
   return item;
 };
