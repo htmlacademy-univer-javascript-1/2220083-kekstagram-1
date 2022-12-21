@@ -1,64 +1,43 @@
-import { imgPreview } from './upload.js';
-
-const STEP_SCALE = 0.25;
-const MAX_SCALING = 1;
-const MIN_SCALING = 0.25;
-const START_SCALING = 0.5;
-
-let scaling = START_SCALING;
-
-const buttons = document.querySelector('.img-upload__scale');
-const scaleValue = document.querySelector('.scale__control--value');
-
-const onValue = () => {
-  scaling = scaleValue.value.replace('%', '')/100;
-
-  if(scaling <= MAX_SCALING && scaling >= MIN_SCALING){
-    imgPreview.style.transform = `scale(${scaling.toFixed(2)})`;
-  }
+const Scale = {
+  STEP: 25,
+  MAX: 100,
+  MIN: 25,
 };
 
-const onScaling = (evt) => {
-  const targetImage = evt.target;
-  imgPreview.style.transform = `scale(${scaling})`;
+const uploadingOverlay = document.querySelector('.img-upload__overlay');
+const uploadingPicture = uploadingOverlay.querySelector('.img-upload__preview').querySelector('img');
+const scale = uploadingOverlay.querySelector('.img-upload__scale');
+const scalerField = scale.querySelector('.scale__control--value');
 
-  let mode = 0;
+const changeScale = (scaleCoefficient) => {
 
-  if (targetImage.classList.contains('scale__control--smaller')){
-    if(scaling !== MIN_SCALING){
-      mode = -1;
+  let scaleNumber = Number(scalerField.value.replace('%', '')) + scaleCoefficient * Scale.STEP;
+
+  if(scaleNumber < Scale.MIN) {
+    scaleNumber = Scale.MIN;
+  }
+  else if (scaleNumber > Scale.MAX) {
+    scaleNumber = Scale.MAX;
+  }
+  scalerField.value = `${scaleNumber}%`;
+  uploadingPicture.style.transform = `scale(${scaleNumber / 100})`;
+};
+
+const onScaleButtonClick = (evt) => {
+  if(evt.target.matches('button')) {
+    let coefficient = 1;
+    if(evt.target.matches('.scale__control--smaller')) {
+      coefficient = -1;
     }
+    changeScale(coefficient);
   }
-
-  if (targetImage.classList.contains('scale__control--bigger')){
-    if(scaling !== MAX_SCALING){
-      mode = 1;
-    }
-  }
-
-  scaling = scaling + STEP_SCALE * mode;
-
-  if(scaling > MAX_SCALING){
-    scaling = MAX_SCALING;
-  }
-  if(scaling < MIN_SCALING){
-    scaling = MIN_SCALING;
-  }
-
-  imgPreview.style.transform = `scale(${scaling.toFixed(2)})`;
-  scaleValue.value = `${scaling.toFixed(2) * 100}%`;
 };
 
 const scalingPhotos = () => {
-  buttons.addEventListener('click', onScaling);
-  scaleValue.addEventListener('change', onValue);
-  scaleValue.value = `${START_SCALING * 100}%`;
-  imgPreview.style.transform = `scale(${START_SCALING})`;
+  scalerField.value = `${Scale.MAX}%`;
+  uploadingPicture.style.transform = `scale(${Scale.MAX / 100})`;
 };
 
-const restart = () => {
-  buttons.removeEventListener('click', onScaling);
-  scaling = START_SCALING;
-};
+scale.addEventListener('click', onScaleButtonClick);
 
-export {scalingPhotos, restart};
+export{scalingPhotos};

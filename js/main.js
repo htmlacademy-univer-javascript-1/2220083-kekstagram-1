@@ -1,5 +1,12 @@
-import './pictures.js';
-import './full-picture.js';
-import './hashtags-pristine.js';
-import './scalingPhoto.js';
-import './effects.js';
+import {renderPhotos} from './pictures.js';
+import {uploadForm} from './upload.js';
+import {sendRequest} from './fetch.js';
+import {showUnloadingErrorMessage} from './util.js';
+
+sendRequest(renderPhotos,
+  () => {
+    showUnloadingErrorMessage('Не удалось загрузить данные из сервера');
+  },
+  'GET');
+
+uploadForm();
