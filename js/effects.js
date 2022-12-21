@@ -75,6 +75,7 @@ const onEffectsClick = (evt) => {
   if(element.classList.contains('effects__label')){
     element = element.querySelector('span');
   }
+
   if(element.classList.contains('effects__preview')) {
     if(currentEffect !== '') {
       uploadingPicture.classList.remove(currentEffect);
@@ -84,6 +85,7 @@ const onEffectsClick = (evt) => {
     sliderValue.value = sliderItem.noUiSlider.get();
 
     currentEffect = element.classList[1];
+
     uploadingPicture.classList.add(currentEffect);
     uploadingPicture.style.filter = effects[currentEffect.replace('effects__preview--', '')]();
   }
@@ -93,6 +95,8 @@ const setEffects = () => {
   currentEffect = 'effects__preview--none';
 
   uploadingPicture.style.filter = effects.none();
+
+  effectsList.children[0].querySelector('input').checked = true;
 };
 
 sliderItem.noUiSlider.on('change', onSliderChange);
