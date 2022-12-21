@@ -89,4 +89,4 @@ const clearHashtagsField = () => {
   pristine.validate();
 };
 
-export {uploadHashtagInput, clearHashtagsField, checkFormValidation};
+export {form, uploadHashtagInput, clearHashtagsField, checkFormValidation};

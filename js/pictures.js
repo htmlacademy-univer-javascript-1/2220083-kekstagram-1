@@ -27,8 +27,8 @@ const renderPhotos = (images) => {
 
 const clearPhotos = () => {
   const oldPictures = pictures.querySelectorAll('.picture');
-  oldPictures.forEach((p) => {
-    p.remove();
+  oldPictures.forEach((picture) => {
+    picture.remove();
   });
 };
 
