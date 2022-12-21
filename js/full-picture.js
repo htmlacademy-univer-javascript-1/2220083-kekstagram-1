@@ -1,7 +1,6 @@
 import { isEscape } from './util.js';
-import { setComments } from './comments.js';
+import { setComments, bigPicture } from './comments.js';
 
-const bigPicture = document.querySelector('.big-picture');
 const closeButton = bigPicture.querySelector('#picture-cancel');
 
 const clearBigPictureMenu = () => {
