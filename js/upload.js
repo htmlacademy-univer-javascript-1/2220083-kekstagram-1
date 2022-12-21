@@ -4,6 +4,7 @@ import { scalingPhotos } from './scalingPhoto.js';
 import { setEffects } from './effects.js';
 import { sendRequest } from './fetch.js';
 import { addPostMessages, showSuccessMessage, closeMessage, showErrorMessage } from './send-messages.js';
+import { uploadUserPhoto } from './user-photo.js';
 
 const form = document.querySelector('.img-upload__form');
 const uploadingControl = form.querySelector('#upload-file');
@@ -27,6 +28,7 @@ const clearForm = () => {
 const onEscapeKeyDown = (evt) => {
   if(isEscape(evt) && !evt.target.classList.contains('text__hashtags') && !evt.target.classList.contains('text__description')) {
     clearForm();
+
     document.removeEventListener('keydown', onEscapeKeyDown);
   }
 };
@@ -41,8 +43,12 @@ uploadingClose.addEventListener('click', closeForm);
 
 const onUploadClick = () => {
   document.addEventListener('keydown', onEscapeKeyDown);
+
+  uploadUserPhoto(uploadingControl.files[0]);
+
   uploadingOverlay.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
+
   scalingPhotos();
   setEffects();
   uploadHashtagInput();
@@ -50,6 +56,7 @@ const onUploadClick = () => {
 
 const uploadForm = () => {
   uploadingControl.addEventListener('change', onUploadClick);
+
   addPostMessages();
 };
 
